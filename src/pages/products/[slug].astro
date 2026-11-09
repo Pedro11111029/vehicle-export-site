@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import InquiryForm from '../../components/InquiryForm.astro';
+import { PRODUCTS, SITE } from '../../config/site.ts';
+
+export function getStaticPaths() {
+  return PRODUCTS.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props;
+
+const title = `${product.name} for Export — Wholesale Supplier | ${SITE.name}`;
+const description = `${product.tagline}. ${product.summary.slice(0, 110)}…`;
+
+const productLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: product.summary,
+  brand: { '@type': 'Brand', name: SITE.name },
+  category: 'Vehicles',
+  url: `${SITE.url}/products/${product.slug}/`,
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Organization', name: SITE.legalName },
+  },
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: product.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Products', item: SITE.url + '/products/' },
+    { '@type': 'ListItem', position: 3, name: product.name, item: `${SITE.url}/products/${product.slug}/` },
+  ],
+};
+---
+<Base title={title} description={description} jsonLd={[productLd, faqLd, breadcrumbLd]}>
+  <section class="section" style="padding-bottom: 32px;">
+    <div class="container">
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;">
+        <a href="/products/" style="color: var(--accent-dark);">Products</a> / {product.name}
+      </p>
+      <div class="grid-2" style="align-items: center; gap: 48px;">
+        <div>
+          <h1>{product.name} for export</h1>
+          <p style="color: var(--muted); font-size: 1.05rem;">{product.summary}</p>
+          <a class="btn btn--primary" href="#quote">Request a Quotation</a>
+        </div>
+        <div class="card-media" style="aspect-ratio: 4 / 3; border-radius: 12px; font-size: 0.85rem;">
+          {product.shortName} photo
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container grid-2" style="align-items: start;">
+      <div>
+        <h2>Key specifications</h2>
+        <table class="spec-table">
+          <tbody>
+            {product.specs.map((s) => (
+              <tr><th scope="row">{s.label}</th><td>{s.value}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <h2>What's included</h2>
+        <ul style="color: var(--muted); padding-left: 1.2em;">
+          {product.highlights.map((h) => <li style="margin-bottom: 0.6em;">{h}</li>)}
+        </ul>
+        <div style="margin-top: 26px;">
+          {SITE.certifications.map((c) => <span class="badge">{c}</span>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" style="align-items: start;">
+      <div class="faq">
+        <h2>Frequently asked questions</h2>
+        {product.faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <div id="quote">
+        <InquiryForm product={product.name} heading={`Get a quote for ${product.shortName}`} />
+      </div>
+    </div>
+  </section>
+</Base>

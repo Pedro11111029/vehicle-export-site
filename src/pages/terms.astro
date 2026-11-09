@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/site.ts';
+
+const title = `Terms of Service | ${SITE.name}`;
+const description = `Terms governing the use of the ${SITE.name} website and the submission of inquiries.`;
+---
+<Base title={title} description={description}>
+  <section class="section">
+    <div class="container prose">
+      <h1>Terms of Service</h1>
+      <p style="color: var(--muted);">Last updated: {new Date().toISOString().slice(0, 10)}</p>
+
+      <h2>1. About this website</h2>
+      <p>
+        This website is operated by {SITE.legalName}. By using it, you agree to these terms. If you do
+        not agree, please do not use the site.
+      </p>
+
+      <h2>2. Information on the site</h2>
+      <p>
+        Product descriptions, specifications and images are provided for general information. They
+        are not an offer capable of acceptance. Prices, availability and configurations are confirmed
+        only in a written quotation issued by us.
+      </p>
+
+      <h2>3. Inquiries</h2>
+      <p>
+        Submitting an inquiry does not create a contract. Any sale is governed by the signed sales
+        contract between you and us, which prevails over anything on this website.
+      </p>
+
+      <h2>4. Acceptable use</h2>
+      <p>
+        You agree not to submit false information, attempt to gain unauthorized access to the site or
+        its systems, or use automated tools to scrape or overload the site.
+      </p>
+
+      <h2>5. Intellectual property</h2>
+      <p>
+        All content on this site, including text and layout, is owned by {SITE.legalName} or its
+        licensors and may not be reproduced without permission. Manufacturer names and trademarks
+        belong to their respective owners.
+      </p>
+
+      <h2>6. Limitation of liability</h2>
+      <p>
+        To the extent permitted by law, we are not liable for indirect or consequential loss arising
+        from use of this website. Nothing in these terms limits liability that cannot be limited by law.
+      </p>
+
+      <h2>7. Governing law</h2>
+      <p>
+        These terms are governed by the laws of the People's Republic of China. Disputes will be
+        referred to the competent court at our place of business, unless mandatory consumer law
+        provides otherwise.
+      </p>
+
+      <h2>8. Contact</h2>
+      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    </div>
+  </section>
+</Base>

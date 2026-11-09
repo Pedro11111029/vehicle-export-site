@@ -1,0 +1,11 @@
+name = "vehicle-export-site"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 先在终端运行 `npx wrangler d1 create inquiries`，
+# 把返回的 database_id 填到下面（本地开发可以先留占位符）
+[[d1_databases]]
+binding = "DB"
+database_name = "inquiries"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"

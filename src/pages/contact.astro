@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { SITE } from '../config/site.ts';
+
+const title = `Contact ${SITE.name} — Request a Vehicle Quote`;
+const description = `Contact our export sales team for pricing, availability and shipping. Email ${SITE.email} or send an inquiry — we reply within 24 hours.`;
+---
+<Base title={title} description={description}>
+  <section class="section" style="padding-bottom: 24px;">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1>Request a quotation</h1>
+      <p style="color: var(--muted); max-width: 58ch;">
+        The more detail you give us — model, quantity, destination port, target price — the faster we can send a usable quote.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container grid-2" style="gap: 40px; align-items: start;">
+      <InquiryForm heading="Tell us what you need" />
+
+      <div>
+        <div class="card" style="padding: 28px;">
+          <h3>Direct contact</h3>
+          <table class="spec-table">
+            <tbody>
+              <tr><th scope="row">Email</th><td><a href={`mailto:${SITE.email}`} style="color: var(--accent-dark);">{SITE.email}</a></td></tr>
+              <tr><th scope="row">Phone</th><td><a href={`tel:${SITE.phone.replace(/\s/g, '')}`}>{SITE.phone}</a></td></tr>
+              <tr><th scope="row">WhatsApp</th><td><a href={`https://wa.me/${SITE.whatsapp.replace(/[^\d]/g, '')}`} target="_blank" rel="noopener" style="color: var(--accent-dark);">Chat now</a></td></tr>
+              <tr><th scope="row">Hours</th><td>{SITE.hours}</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card" style="padding: 28px; margin-top: 20px;">
+          <h3>Office</h3>
+          <p style="color: var(--muted); margin: 0;">{SITE.legalName}<br />{SITE.address}</p>
+        </div>
+
+        <div class="card" style="padding: 28px; margin-top: 20px;">
+          <h3>Response time</h3>
+          <p style="color: var(--muted); margin: 0;">
+            Business inquiries are answered within 24 hours, Monday to Saturday.
+            Urgent shipping matters: message us on WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

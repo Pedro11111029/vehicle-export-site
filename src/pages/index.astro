@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { SITE, PRODUCTS } from '../config/site.ts';
+
+const title = `${SITE.name} — Vehicle Export Supplier for Global Buyers`;
+---
+<Base title={title} description={SITE.description}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow" style="color: var(--accent);">B2B Vehicle Export</p>
+        <h1>Vehicles sourced, inspected and shipped to your market.</h1>
+        <p class="lead">
+          Factory-direct passenger cars, commercial trucks and new energy vehicles.
+          We handle inspection, export documentation and freight — one contact from quote to arrival.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#inquiry">Request a Quote</a>
+          <a class="btn btn--ghost" href="/products/">Browse Products</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Why buyers work with us</h3>
+        <ul>
+          <li>Verified factory sources and pre-shipment inspection</li>
+          <li>Full export docs: invoice, packing list, B/L, CO, certificates</li>
+          <li>FOB, CIF and DDP terms available</li>
+          <li>One English-speaking account manager per order</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-block: 0;">
+    <div class="container" style="transform: translateY(-36px);">
+      <div class="stats">
+        {SITE.stats.map((s) => (
+          <div class="stat">
+            <strong>{s.value}</strong>
+            <span>{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Product Range</p>
+        <h2>What we export</h2>
+        <p>Three core categories, each configured to your market's regulations, road conditions and price point.</p>
+      </div>
+
+      <div class="grid-3">
+        {PRODUCTS.map((p) => (
+          <a class="card" href={`/products/${p.slug}/`}>
+            <div class="card-media">{p.shortName}</div>
+            <div class="card-body">
+              <h3>{p.name}</h3>
+              <p>{p.tagline}</p>
+              <span class="card-link">View specifications →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>A predictable process from inquiry to delivery</h2>
+      </div>
+      <div class="grid-3">
+        <div class="feature">
+          <div class="feature-num">1</div>
+          <h3>Tell us your requirements</h3>
+          <p style="color: var(--muted);">Model, quantity, destination port and target price. We confirm availability and send a written quotation within 24 hours.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-num">2</div>
+          <h3>Sample or order confirmation</h3>
+          <p style="color: var(--muted);">Place a sample order or a full container. We arrange inspection and share photos before shipment.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-num">3</div>
+          <h3>Documents and shipping</h3>
+          <p style="color: var(--muted);">We book the vessel, prepare the full document set and keep you updated until the vehicle clears customs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2" style="align-items: start;">
+      <div>
+        <p class="eyebrow">Quality & Compliance</p>
+        <h2>Documented, inspected, traceable</h2>
+        <p style="color: var(--muted); max-width: 48ch;">
+          Every shipment is backed by factory certificates and an independent pre-shipment inspection.
+          We prepare UN38.3 and MSDS documentation for electrified vehicles and assist with homologation
+          requirements in your market.
+        </p>
+        <div style="margin-top: 18px;">
+          {SITE.certifications.map((c) => <span class="badge">{c}</span>)}
+        </div>
+      </div>
+
+      <div id="inquiry">
+        <InquiryForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="cta-band">
+        <div>
+          <h2>Have a target price in mind?</h2>
+          <p>Send us the model and destination — we will tell you honestly whether we can meet it.</p>
+        </div>
+        <a class="btn btn--primary" href="/contact/">Talk to a specialist</a>
+      </div>
+    </div>
+  </section>
+</Base>

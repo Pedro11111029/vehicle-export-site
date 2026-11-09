@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/site.ts';
+
+const title = `About ${SITE.name} — Vehicle Export Company`;
+const description = `${SITE.name} has supplied passenger vehicles, trucks and new energy vehicles to buyers in ${SITE.stats[1].value} countries since ${SITE.founded}. Learn how we work.`;
+---
+<Base title={title} description={description}>
+  <section class="section" style="padding-bottom: 32px;">
+    <div class="container">
+      <p class="eyebrow">About us</p>
+      <h1>A trading partner that answers, documents and delivers.</h1>
+      <p style="color: var(--muted); font-size: 1.08rem; max-width: 62ch;">
+        {SITE.legalName} is a vehicle export company based in China, supplying passenger cars,
+        commercial trucks and new energy vehicles to importers, dealers and fleet operators worldwide.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container grid-2" style="gap: 48px; align-items: start;">
+      <div class="prose">
+        <h2>How we work</h2>
+        <p>
+          We are not a marketplace and we do not resell listings. Every order is matched to a factory
+          we have inspected, priced with freight included, and documented before it leaves the country.
+        </p>
+        <p>
+          Our team handles the parts of an export order that are easy to get wrong: specification
+          matching, inspection photos, certificate of origin, and the carrier booking.
+        </p>
+
+        <h2>What we check before shipment</h2>
+        <ul>
+          <li>Vehicle identity and production date match the invoice</li>
+          <li>Odometer, paint and interior condition photographed</li>
+          <li>Export documents reviewed against destination requirements</li>
+          <li>Battery documentation for electrified vehicles (UN38.3, MSDS)</li>
+        </ul>
+
+        <h2>Where we ship</h2>
+        <p>
+          Our main destinations include Africa, the Middle East, Southeast Asia, Latin America and
+          Eastern Europe. If your port is not on our regular routes, we will quote it honestly.
+        </p>
+      </div>
+
+      <div>
+        <div class="card" style="padding: 28px;">
+          <h3>Company facts</h3>
+          <table class="spec-table">
+            <tbody>
+              <tr><th scope="row">Legal name</th><td>{SITE.legalName}</td></tr>
+              <tr><th scope="row">Founded</th><td>{SITE.founded}</td></tr>
+              <tr><th scope="row">Location</th><td>{SITE.address}</td></tr>
+              <tr><th scope="row">Markets</th><td>60+ countries</td></tr>
+              <tr><th scope="row">Languages</th><td>English, Chinese</td></tr>
+            </tbody>
+          </table>
+          <a class="btn btn--dark" href="/contact/" style="margin-top: 22px; width: 100%; justify-content: center;">Contact our team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container" style="text-align: center;">
+      <h2>Ready to talk specs and price?</h2>
+      <p style="color: var(--muted); max-width: 50ch; margin-inline: auto;">
+        Send the model, quantity and destination port. You will get a written quotation within 24 hours.
+      </p>
+      <a class="btn btn--primary" href="/contact/">Request a quote</a>
+    </div>
+  </section>
+</Base>
