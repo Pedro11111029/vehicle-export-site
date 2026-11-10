@@ -8,4 +8,4 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "inquiries"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "0b1f70d0-2918-4e54-913e-e5cae46ec32c"
