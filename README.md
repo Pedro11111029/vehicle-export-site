@@ -4,6 +4,7 @@
 
 **技术栈**：Astro 5 · Cloudflare Pages · D1 · Resend · Turnstile
 **成本**：域名约 ¥100/年，其余在免费额度内
+**线上预览**：https://vehicle-export-site.pages.dev （正式域名 `usedtruk.com` 绑定中）
 
 ---
 

@@ -28,6 +28,9 @@
 - [x] 填真实站点信息（`usedtruk.com` / Global Auto Trading / PedroZ CO., LTD. / 邮箱、电话、WhatsApp、地址）
 - [x] 上线前加固：自定义 404、`_headers` 安全响应头、1200×630 OG 分享图、`.nvmrc`（Node 22）
 - [x] 本地 Cloudflare 环境实测：页面 200 / 404 / 安全头 / 询盘接口 `{"ok":true}` / D1 落库
+- [x] **已上线预览**：https://vehicle-export-site.pages.dev （Cloudflare Pages，GitHub `master` 自动构建）
+- [x] 生产 D1 创建 + 建表（`inquiries`，区域 WEUR，`database_id = 0b1f70d0-2918-4e54-913e-e5cae46ec32c`）
+- [x] 线上全链路实测：全部页面 200、404 正常、询盘写入远程 D1 成功（测试数据已清理）
 
 ## 本地预览
 
@@ -49,17 +52,20 @@ npm run dev -- --host 127.0.0.1
 - [x] 加 `public/og-image.jpg`（1200×630，社媒分享用，由 `scripts/make-og-image.ps1` 生成）
 
 ### 上线（基础设施）
-- [ ] 购买域名（.com 优先，看续费价）
-- [ ] `npx wrangler login`
-- [ ] `npx wrangler d1 create inquiries` → database_id 填进 `wrangler.toml`
-- [ ] `npx wrangler d1 execute inquiries --remote --file=./schema.sql`
-- [ ] 推到 GitHub，Cloudflare Pages 接仓库（Build: `npm run build`，Output: `dist`）
-- [ ] Pages 绑定 D1（变量名 `DB`）
-- [ ] 配置环境变量：`PUBLIC_TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`、`RESEND_API_KEY`、`OWNER_EMAIL`、`FROM_EMAIL`
-- [ ] Cloudflare Turnstile 建站点
-- [ ] Resend 验证发信子域名 `send.你的域名.com` + 主域名加 DMARC
-- [ ] Email Routing 把 `sales@域名` 转发到私人邮箱
-- [ ] 绑定自定义域名
+- [x] 购买域名 `usedtruk.com`（阿里云注册，2027-07-18 到期）
+- [x] `npx wrangler login`
+- [x] `npx wrangler d1 create inquiries` → database_id 已填进 `wrangler.toml`
+- [x] `npx wrangler d1 execute inquiries --remote --file=./schema.sql`
+- [x] 推到 GitHub，Cloudflare Pages 接仓库（Build: `npm run build`，Output: `dist`）
+  - 仓库：https://github.com/Pedro11111029/vehicle-export-site
+  - 线上：https://vehicle-export-site.pages.dev
+- [x] Pages 绑定 D1（变量名 `DB`，线上实测写入成功）
+- [ ] 配置环境变量：`NODE_VERSION=22`（Pages 构建）、`PUBLIC_TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY`、`RESEND_API_KEY`、`OWNER_EMAIL`、`FROM_EMAIL`
+- [ ] Cloudflare Turnstile 建站点（当前线上仍用测试密钥，验证永远通过）
+- [ ] Resend 验证发信子域名 `send.usedtruk.com` + 主域名加 DMARC
+- [ ] Email Routing 把 `sales@usedtruk.com` 转发到私人邮箱
+- [ ] **域名 DNS 迁移**：`usedtruk.com` 当前 NS 仍是阿里云停放（`dns-parking.com`，域名解析是坏的），需在 Cloudflare 添加站点后把阿里云 NS 改为 Cloudflare 分配的两个 NS
+- [ ] 绑定自定义域名 `usedtruk.com` + `www`
 
 ### 上线后
 - [ ] Google Search Console 验证 + 提交 sitemap
