@@ -20,12 +20,12 @@
 - **生产 D1**：`inquiries`（WEUR，`0b1f70d0-2918-4e54-913e-e5cae46ec32c`），表已建，线上写入已验证
 - **Turnstile**：线上仍用测试站点密钥（验证永远通过），真实密钥未创建
 - **邮件**：Resend 未配置（询盘只入库不发信）；`Pedro@usedtruk.com` 目前收不到信，需开 Cloudflare Email Routing
-- **代码状态**：产品资料整合已完成，待提交推送（9 个产品分类页 + 图片 + 数据文件）
+- **代码状态**：产品资料整合已提交推送（`9638f67`），Cloudflare Pages 已构建上线，9 个分类页线上实测 200，旧 URL 301 正常
 - **产品资料**：已按 `C:\Users\15333\Desktop\产品信息` 的画册整理为 9 个分类（详见下方）
 
 ### 恢复后先做
 
-1. 提交并推送本次产品改版，等 Cloudflare Pages 自动构建
+1. [x] 提交并推送本次产品改版，等 Cloudflare Pages 自动构建（已完成）
 2. Cloudflare 添加站点 `usedtruk.com` → 阿里云改 NS → 等 Active
 3. Pages 绑定 `usedtruk.com` + `www`，开启 Email Routing
 4. 创建 Turnstile 真实密钥、Resend 发信子域名 `send.usedtruk.com` + DMARC
@@ -60,6 +60,7 @@
   - 产品列表页/首页改为 9 分类卡片 + 图片；About 文案同步
   - 产品图统一输出 16:10（1400×875），EV 与房车用品牌色 SVG 插图
   - 构建通过，9 个产品页 + sitemap 全部生成
+- [x] **产品改版上线验证（2026-11-11）**：提交 `9638f67` 已推送，Cloudflare Pages 自动构建完成；9 个分类页线上 200，3 条旧 URL 301 跳转正常，图片资源 200，sitemap 收录 9 个分类页
 
 ## 本地预览
 
