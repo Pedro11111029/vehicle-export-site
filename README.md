@@ -22,25 +22,34 @@
 | `stats` | 首页数字条 |
 | `certifications` | 认证徽章 |
 
-产品在同一个文件下方的 `PRODUCTS` 数组里，三个产品页由它自动生成：
+产品分类在 `src/data/products.ts` 的 `PRODUCTS` 数组里，9 个分类页由它自动生成（`src/config/site.ts` 只负责再导出，页面不用改）：
 
 ```ts
 {
-  slug: 'passenger-vehicles',      // URL：/products/passenger-vehicles/
-  name: 'Passenger Vehicles',      // 页面标题
-  shortName: 'Passenger Cars',     // 小标签
-  tagline: '...',                  // 一句话卖点
-  summary: '...',                  // 段落介绍
-  highlights: ['...'],             // 卖点列表
-  specs: [{ label: '...', value: '...' }],  // 参数表
-  faqs: [{ q: '...', a: '...' }],  // FAQ（会生成 FAQ 结构化数据）
+  slug: 'tractor-trucks',          // URL：/products/tractor-trucks/
+  name: 'Tractor Trucks',          // H1 / 导航名称
+  shortName: 'Tractor Trucks',     // 短标签
+  tagline: '...',                  // 一句话卖点（卡片）
+  summary: '...',                  // 分类摘要（meta description 素材）
+  seoTitle: '...',                 // 页面 title（不含品牌名）
+  seoDescription: '...',           // meta description（150 字符内）
+  image: '/images/products/xxx-card.jpg',
+  imageAlt: '...',                 // 图片 alt（SEO）
+  brands: ['FAW Jiefang'],
+  intro: '...\n\n...',             // 正文介绍，空行分段
+  highlights: ['...'],
+  specs: [{ label: '...', value: '...' }],
+  models: [{ name, type, description, specs }],  // 车型卡片，生成 h3 锚点
+  applications: ['...'],           // 用途标签
+  faqs: [{ q: '...', a: '...' }],  // FAQ 结构化数据
+  related: ['dump-trucks'],        // 相关分类 slug
 }
 ```
 
-> 增删产品 = 增删数组元素，不需要新建页面文件。
+> 增删分类或车型 = 改这个数组，不需要新建页面文件。
 
-**图片**：产品图放在 `public/images/`，然后在 `src/config/site.ts` 的 `PRODUCTS` 里加 `image: '/images/xxx.jpg'`，
-再把 `src/pages/products/[slug].astro` 里的 `<div class="card-media">` 换成 `<img>`。
+**图片**：产品图放在 `public/images/products/`。卡片和详情页按 16:10 显示，建议统一输出 1400×875（`.jpg`）；
+没有实拍图的分类可用同尺寸 `.svg` 插图。`imageAlt` 必填，是图片 SEO 的关键。
 
 **分享图**：`public/og-image.jpg`（1200×630）已生成。改了品牌名或域名后重新生成：
 
@@ -209,7 +218,8 @@ npm run preview
 
 ```
 src/
-  config/site.ts        ← 所有内容和配置都在这里
+  config/site.ts        ← 站点信息、导航；再导出产品数据
+  data/products.ts      ← 9 个产品分类、车型、参数、FAQ（改产品只动这里）
   content.config.ts     ← 博客内容集合的字段定义和校验
   content/blog/*.md     ← 博客文章（一个文件一篇）
   lib/blog.ts           ← 文章排序、日期、阅读时长等小工具
@@ -219,7 +229,7 @@ src/
   pages/
     index.astro         ← 首页
     products/index.astro
-    products/[slug].astro ← 产品页模板（自动生成 3 页）
+    products/[slug].astro ← 产品页模板（自动生成 9 页）
     blog/index.astro    ← 文章列表
     blog/[...slug].astro ← 文章页模板（带目录、相关文章、BlogPosting 结构化数据）
     about.astro / contact.astro

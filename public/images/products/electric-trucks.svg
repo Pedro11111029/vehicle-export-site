@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Illustration of a battery-electric heavy truck">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1b2a"/>
+      <stop offset="0.55" stop-color="#16293d"/>
+      <stop offset="1" stop-color="#1d3550"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.22" r="0.55">
+      <stop offset="0" stop-color="#e07b26" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#e07b26" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trailer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9f0f7" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#e9f0f7" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8fc7f0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#4f7fa8" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.045" stroke-width="1">
+    <path d="M0 200H1600M0 400H1600M0 600H1600M0 800H1600"/>
+    <path d="M200 0V1000M400 0V1000M600 0V1000M800 0V1000M1000 0V1000M1200 0V1000M1400 0V1000"/>
+  </g>
+
+  <!-- trailer -->
+  <g>
+    <rect x="70" y="330" width="640" height="330" rx="12" fill="url(#trailer)" stroke="#dfe7ef" stroke-opacity="0.45" stroke-width="5"/>
+    <g stroke="#dfe7ef" stroke-opacity="0.22" stroke-width="3">
+      <path d="M160 340V650M250 340V650M340 340V650M430 340V650M520 340V650M610 340V650"/>
+    </g>
+    <rect x="90" y="640" width="600" height="18" rx="6" fill="#0b1420" opacity="0.7"/>
+    <path d="M690 660H730" stroke="#dfe7ef" stroke-opacity="0.45" stroke-width="8"/>
+  </g>
+
+  <!-- tractor -->
+  <g>
+    <path d="M730 700V400Q730 366 764 366H1000Q1030 366 1042 394L1080 500V700Z" fill="url(#cab)" stroke="#eef4fa" stroke-opacity="0.75" stroke-width="5"/>
+    <path d="M968 386H1006Q1022 386 1029 402L1056 486H968Z" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.55" stroke-width="3"/>
+    <path d="M766 396H940V466H766Z" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.35" stroke-width="3"/>
+    <path d="M848 466V640" stroke="#eef4fa" stroke-opacity="0.25" stroke-width="3"/>
+    <rect x="884" y="520" width="46" height="10" rx="5" fill="#e07b26"/>
+    <path d="M734 640H1078" stroke="#eef4fa" stroke-opacity="0.35" stroke-width="4"/>
+    <rect x="742" y="648" width="330" height="22" rx="8" fill="#0b1420" opacity="0.85"/>
+    <!-- battery pack -->
+    <rect x="770" y="592" width="220" height="42" rx="8" fill="#e07b26" fill-opacity="0.18" stroke="#e07b26" stroke-opacity="0.75" stroke-width="3"/>
+    <path d="M830 613h14l-8 12h10l-18 20 5-14h-9z" fill="#e07b26"/>
+    <text x="862" y="620" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="17" letter-spacing="2" fill="#f5d6ba">423 kWh</text>
+
+    <!-- wheels -->
+    <g>
+      <circle cx="818" cy="706" r="66" fill="#0b1420" stroke="#dfe7ef" stroke-opacity="0.55" stroke-width="5"/>
+      <circle cx="818" cy="706" r="30" fill="none" stroke="#dfe7ef" stroke-opacity="0.35" stroke-width="4"/>
+      <circle cx="1012" cy="706" r="66" fill="#0b1420" stroke="#dfe7ef" stroke-opacity="0.55" stroke-width="5"/>
+      <circle cx="1012" cy="706" r="30" fill="none" stroke="#dfe7ef" stroke-opacity="0.35" stroke-width="4"/>
+    </g>
+  </g>
+
+  <!-- EV badge -->
+  <g>
+    <circle cx="1330" cy="300" r="118" fill="#e07b26" fill-opacity="0.10" stroke="#e07b26" stroke-opacity="0.85" stroke-width="5"/>
+    <path d="M1352 202l-70 108h50l-24 92 78-120h-54z" fill="#e07b26"/>
+  </g>
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif">
+    <text x="1208" y="520" font-size="58" font-weight="700" fill="#ffffff" letter-spacing="1">JIEFANG EV</text>
+    <text x="1210" y="566" font-size="21" letter-spacing="5" fill="#ffffff" fill-opacity="0.55">ZERO EMISSION</text>
+    <text x="1210" y="606" font-size="21" letter-spacing="5" fill="#ffffff" fill-opacity="0.55">HEAVY TRUCK</text>
+  </g>
+
+  <path d="M60 780H1540" stroke="#ffffff" stroke-opacity="0.16" stroke-width="3"/>
+  <path d="M60 780H420" stroke="#e07b26" stroke-opacity="0.8" stroke-width="6"/>
+</svg>

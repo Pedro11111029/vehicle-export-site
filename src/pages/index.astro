@@ -12,8 +12,9 @@ const title = `${SITE.name} — Vehicle Export Supplier for Global Buyers`;
         <p class="eyebrow" style="color: var(--accent);">B2B Vehicle Export</p>
         <h1>Vehicles sourced, inspected and shipped to your market.</h1>
         <p class="lead">
-          Factory-direct passenger cars, commercial trucks and new energy vehicles.
-          We handle inspection, export documentation and freight — one contact from quote to arrival.
+          FAW trucks, special-purpose and municipal vehicles, Bestune cars, electric commercial
+          vehicles and RVs — factory-direct, inspected and shipped to your market. One contact from
+          quotation to arrival.
         </p>
         <div class="hero-actions">
           <a class="btn btn--primary" href="#inquiry">Request a Quote</a>
@@ -51,13 +52,19 @@ const title = `${SITE.name} — Vehicle Export Supplier for Global Buyers`;
       <div class="section-head">
         <p class="eyebrow">Product Range</p>
         <h2>What we export</h2>
-        <p>Three core categories, each configured to your market's regulations, road conditions and price point.</p>
+        <p>Nine product lines, each configured to your market's regulations, road conditions and price point — from 4.7 t light trucks to 49 t tractor units.</p>
       </div>
 
       <div class="grid-3">
         {PRODUCTS.map((p) => (
           <a class="card" href={`/products/${p.slug}/`}>
-            <div class="card-media">{p.shortName}</div>
+            <div class="card-media">
+              {p.image ? (
+                <img src={p.image} alt={p.imageAlt ?? p.name} width="600" height="375" loading="lazy" />
+              ) : (
+                p.shortName
+              )}
+            </div>
             <div class="card-body">
               <h3>{p.name}</h3>
               <p>{p.tagline}</p>
@@ -66,6 +73,7 @@ const title = `${SITE.name} — Vehicle Export Supplier for Global Buyers`;
           </a>
         ))}
       </div>
+      <p style="margin-top: 28px;"><a class="card-link" href="/products/">Compare all product lines →</a></p>
     </div>
   </section>
 

@@ -2,8 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import { PRODUCTS, SITE } from '../../config/site.ts';
 
-const title = `Vehicle Export Products — Cars, Trucks & NEVs | ${SITE.name}`;
-const description = 'Passenger vehicles, commercial trucks and new energy vehicles available for export. View specifications, MOQ and lead times, then request a quotation.';
+const title = `Vehicle Export Products — FAW Trucks, Cars, EVs & RVs | ${SITE.name}`;
+const description =
+  'Nine export vehicle categories: FAW tractor, dump, cargo, special-purpose, garbage and tanker trucks, electric trucks, Bestune passenger cars and Changan RVs. Specifications, models and quotations.';
 
 const breadcrumbLd = {
   '@context': 'https://schema.org',
@@ -20,15 +21,34 @@ const collectionLd = {
   name: title,
   description,
   url: SITE.url + '/products/',
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: PRODUCTS.length,
+    itemListElement: PRODUCTS.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.name,
+      url: `${SITE.url}/products/${p.slug}/`,
+    })),
+  },
 };
+
+const brands = ['FAW Jiefang', 'FAW Bestune', 'Dongfeng', 'Changan', 'Chengli Special Automobile'];
 ---
+
 <Base title={title} description={description} jsonLd={[breadcrumbLd, collectionLd]}>
   <section class="section" style="padding-bottom: 24px;">
     <div class="container">
       <p class="eyebrow">Products</p>
       <h1>Vehicle categories we export</h1>
-      <p style="color: var(--muted); max-width: 60ch;">
-        Each category can be configured for your market — steering side, emission standard, charging standard and body specification.
+      <p style="color: var(--muted); max-width: 68ch;">
+        Nine product lines covering heavy trucks, municipal and special-purpose vehicles, electric commercial
+        vehicles, passenger cars and motorhomes. Each category can be configured for your market — steering
+        side, emission standard, charging standard, body specification and optional equipment.
+      </p>
+      <p style="color: var(--muted); max-width: 68ch;">
+        Every listing below is backed by a current factory specification sheet. If you need a model that is
+        not shown, send us the name and destination country — we will confirm availability and pricing.
       </p>
     </div>
   </section>
@@ -37,11 +57,17 @@ const collectionLd = {
     <div class="container grid-3">
       {PRODUCTS.map((p) => (
         <a class="card" href={`/products/${p.slug}/`}>
-          <div class="card-media">{p.shortName}</div>
+          <div class="card-media">
+            {p.image ? (
+              <img src={p.image} alt={p.imageAlt ?? p.name} width="600" height="375" loading="lazy" />
+            ) : (
+              p.shortName
+            )}
+          </div>
           <div class="card-body">
-            <h3>{p.name}</h3>
-            <p>{p.summary.slice(0, 130)}…</p>
-            <span class="card-link">View specifications →</span>
+            <h2 style="font-size: 1.15rem;">{p.name}</h2>
+            <p>{p.summary.slice(0, 140)}…</p>
+            <span class="card-link">View models &amp; specifications →</span>
           </div>
         </a>
       ))}
@@ -49,10 +75,23 @@ const collectionLd = {
   </section>
 
   <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <h2>Brands we export</h2>
+        <p>Factory-direct supply through authorised channels, with export documentation and inspection on every order.</p>
+      </div>
+      <ul class="chip-list">
+        {brands.map((b) => <li class="chip">{b}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container" style="text-align: center;">
       <h2>Not sure which category fits your market?</h2>
       <p style="color: var(--muted); max-width: 52ch; margin-inline: auto;">
-        Tell us the destination country and intended use — we will recommend the right configuration.
+        Tell us the destination country, payload or seating requirement and intended use — we will recommend
+        the right model and configuration.
       </p>
       <a class="btn btn--dark" href="/contact/">Ask a specialist</a>
     </div>

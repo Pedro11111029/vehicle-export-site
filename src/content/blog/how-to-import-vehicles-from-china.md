@@ -18,7 +18,7 @@ A quotation is only meaningful once these are fixed:
 - **Emission standard** — Euro III through Euro VI, or the local equivalent.
 - **Volume** — a single sample unit, a container load, or a rolling programme.
 
-Sellers who quote before knowing these will either over-price to protect themselves or under-price and adjust later. Expect a serious supplier to ask all five questions before sending a price.
+Sellers who quote before knowing these will either over-price to protect themselves or under-price and adjust later. Expect a serious supplier to ask all five questions before sending a price. You can see the configurations we supply in our [product categories](/products/).
 
 ## 2. Understand what the price does and does not include
 
@@ -67,7 +67,7 @@ Two methods dominate:
 - **Container (20' or 40' HQ)** — vehicles are driven or forklifted inside and secured. A 40' HQ fits two to four cars depending on size. Good for mixed loads, high-value units and destinations without RoRo service.
 - **RoRo (Roll-on/Roll-off)** — vehicles are driven onto a dedicated vessel. Usually cheaper per unit for standard cars and trucks, but you need a port with RoRo service and the schedule is less flexible.
 
-Electric vehicles are a special case: carriers treat them as Class 9 dangerous goods, so some RoRo operators refuse them or charge a surcharge. Container shipping with the battery disconnected and documentation prepared is often the more reliable route.
+Electric vehicles are a special case: carriers treat them as Class 9 dangerous goods, so some RoRo operators refuse them or charge a surcharge. Container shipping with the battery disconnected and documentation prepared is often the more reliable route — see our [electric trucks](/products/electric-trucks/) for the models and battery options we export.
 
 ## 6. Budget for the costs outside the invoice
 

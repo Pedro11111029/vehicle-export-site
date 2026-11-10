@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Illustration of a four-wheel-drive motorhome">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1b2a"/>
+      <stop offset="0.55" stop-color="#16293d"/>
+      <stop offset="1" stop-color="#1d3550"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e07b26" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#e07b26" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2f7fb" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#f2f7fb" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8fc7f0" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#4f7fa8" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+
+  <!-- landscape -->
+  <circle cx="1310" cy="250" r="230" fill="url(#sun)"/>
+  <circle cx="1310" cy="250" r="86" fill="#e07b26" fill-opacity="0.85"/>
+  <path d="M0 470L240 330l190 120 210-170 260 200 200-120 240 140 260-150v180H0Z" fill="#ffffff" fill-opacity="0.045"/>
+  <path d="M0 540l300-120 250 130 260-110 300 120 250-90 240 100v100H0Z" fill="#ffffff" fill-opacity="0.035"/>
+
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <path d="M0 200H1600M0 400H1600M0 600H1600M0 800H1600"/>
+  </g>
+
+  <!-- motorhome -->
+  <g>
+    <!-- awning -->
+    <path d="M300 352h470v-22H316Z" fill="#e07b26" fill-opacity="0.9"/>
+    <path d="M330 330v-26M760 330v-26" stroke="#e07b26" stroke-opacity="0.6" stroke-width="4"/>
+
+    <!-- body -->
+    <path d="M250 700V420Q250 380 290 380H1050V380Q1110 380 1145 430L1200 512Q1212 530 1212 552V700Z" fill="url(#body)" stroke="#eef4fa" stroke-opacity="0.8" stroke-width="5"/>
+    <!-- cab front / windshield -->
+    <path d="M1070 404H1092Q1124 404 1146 438L1188 506H1070Z" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.5" stroke-width="3"/>
+    <path d="M1030 404V700" stroke="#eef4fa" stroke-opacity="0.22" stroke-width="3"/>
+    <!-- side windows -->
+    <rect x="300" y="424" width="190" height="118" rx="10" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.4" stroke-width="3"/>
+    <rect x="530" y="424" width="150" height="118" rx="10" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.4" stroke-width="3"/>
+    <rect x="720" y="424" width="150" height="118" rx="10" fill="url(#glass)" stroke="#bcd8ee" stroke-opacity="0.4" stroke-width="3"/>
+    <!-- door -->
+    <rect x="900" y="424" width="104" height="256" rx="8" fill="#0b1420" fill-opacity="0.35" stroke="#eef4fa" stroke-opacity="0.3" stroke-width="3"/>
+    <circle cx="984" cy="560" r="6" fill="#e07b26"/>
+    <!-- stripe -->
+    <rect x="252" y="566" width="958" height="26" fill="#e07b26" fill-opacity="0.9"/>
+    <!-- roof kit -->
+    <rect x="700" y="346" width="130" height="36" rx="8" fill="#0b1420" fill-opacity="0.55" stroke="#eef4fa" stroke-opacity="0.35" stroke-width="3"/>
+    <rect x="880" y="352" width="70" height="30" rx="6" fill="#0b1420" fill-opacity="0.4" stroke="#eef4fa" stroke-opacity="0.25" stroke-width="2"/>
+
+    <!-- wheels -->
+    <g>
+      <circle cx="470" cy="706" r="72" fill="#0b1420" stroke="#dfe7ef" stroke-opacity="0.6" stroke-width="6"/>
+      <circle cx="470" cy="706" r="34" fill="none" stroke="#dfe7ef" stroke-opacity="0.35" stroke-width="5"/>
+      <circle cx="470" cy="706" r="10" fill="#e07b26"/>
+      <circle cx="1010" cy="706" r="72" fill="#0b1420" stroke="#dfe7ef" stroke-opacity="0.6" stroke-width="6"/>
+      <circle cx="1010" cy="706" r="34" fill="none" stroke="#dfe7ef" stroke-opacity="0.35" stroke-width="5"/>
+      <circle cx="1010" cy="706" r="10" fill="#e07b26"/>
+    </g>
+
+    <!-- 4x4 badge -->
+    <g>
+      <rect x="1100" y="600" width="86" height="40" rx="8" fill="#e07b26" fill-opacity="0.16" stroke="#e07b26" stroke-opacity="0.8" stroke-width="3"/>
+      <text x="1143" y="628" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#e07b26">4×4</text>
+    </g>
+  </g>
+
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif">
+    <text x="150" y="880" font-size="52" font-weight="700" fill="#ffffff" letter-spacing="1">CHANGAN FENGJING</text>
+    <text x="152" y="924" font-size="21" letter-spacing="5" fill="#ffffff" fill-opacity="0.55">BLUE WHALE EXPLORER · MOTORHOME</text>
+  </g>
+
+  <path d="M60 790H1540" stroke="#ffffff" stroke-opacity="0.16" stroke-width="3"/>
+  <path d="M60 790H420" stroke="#e07b26" stroke-opacity="0.8" stroke-width="6"/>
+</svg>

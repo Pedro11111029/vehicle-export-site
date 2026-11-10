@@ -9,23 +9,49 @@ export function getStaticPaths() {
 
 const { product } = Astro.props;
 
-const title = `${product.name} for Export — Wholesale Supplier | ${SITE.name}`;
-const description = `${product.tagline}. ${product.summary.slice(0, 110)}…`;
+const title = `${product.seoTitle} | ${SITE.name}`;
+const description = product.seoDescription;
+
+const productUrl = `${SITE.url}/products/${product.slug}/`;
+const imageUrl = product.image
+  ? product.image.startsWith('http')
+    ? product.image
+    : `${SITE.url}${product.image}`
+  : undefined;
 
 const productLd = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: product.name,
   description: product.summary,
-  brand: { '@type': 'Brand', name: SITE.name },
-  category: 'Vehicles',
-  url: `${SITE.url}/products/${product.slug}/`,
+  image: imageUrl ? [imageUrl] : undefined,
+  brand: product.brands.map((name) => ({ '@type': 'Brand', name })),
+  category: 'Vehicles > Commercial Vehicles',
+  url: productUrl,
   offers: {
     '@type': 'AggregateOffer',
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
     seller: { '@type': 'Organization', name: SITE.legalName },
   },
+  additionalProperty: product.specs.map((s) => ({
+    '@type': 'PropertyValue',
+    name: s.label,
+    value: s.value,
+  })),
+};
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${product.name} models`,
+  numberOfItems: product.models.length,
+  itemListElement: product.models.map((m, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: m.name,
+    description: m.description,
+  })),
 };
 
 const faqLd = {
@@ -44,33 +70,75 @@ const breadcrumbLd = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
     { '@type': 'ListItem', position: 2, name: 'Products', item: SITE.url + '/products/' },
-    { '@type': 'ListItem', position: 3, name: product.name, item: `${SITE.url}/products/${product.slug}/` },
+    { '@type': 'ListItem', position: 3, name: product.name, item: productUrl },
   ],
 };
+
+const relatedProducts = product.related
+  .map((slug) => PRODUCTS.find((p) => p.slug === slug))
+  .filter((p): p is (typeof PRODUCTS)[number] => Boolean(p));
+
+const introParagraphs = product.intro.split('\n\n').filter(Boolean);
+const isIllustration = product.image?.endsWith('.svg');
 ---
-<Base title={title} description={description} jsonLd={[productLd, faqLd, breadcrumbLd]}>
-  <section class="section" style="padding-bottom: 32px;">
+
+<Base
+  title={title}
+  description={description}
+  jsonLd={[productLd, itemListLd, faqLd, breadcrumbLd]}
+  ogImage={product.image && !isIllustration ? product.image : undefined}
+>
+  <section class="section product-hero">
     <div class="container">
-      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;">
-        <a href="/products/" style="color: var(--accent-dark);">Products</a> / {product.name}
-      </p>
-      <div class="grid-2" style="align-items: center; gap: 48px;">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> <span aria-hidden="true">/</span>
+        <a href="/products/">Products</a> <span aria-hidden="true">/</span>
+        <span aria-current="page">{product.name}</span>
+      </nav>
+
+      <div class="grid-2 product-hero-grid">
         <div>
+          <p class="eyebrow">{product.brands.join(' · ')}</p>
           <h1>{product.name} for export</h1>
-          <p style="color: var(--muted); font-size: 1.05rem;">{product.summary}</p>
-          <a class="btn btn--primary" href="#quote">Request a Quotation</a>
+          <p class="lead-soft">{product.summary}</p>
+          <div class="hero-actions" style="margin-bottom: 20px;">
+            <a class="btn btn--primary" href="#quote">Request a Quotation</a>
+            <a class="btn btn--outline" href="#models">View models</a>
+          </div>
+          <ul class="hero-points">
+            {product.highlights.slice(0, 3).map((h) => <li>{h}</li>)}
+          </ul>
         </div>
-        <div class="card-media" style="aspect-ratio: 4 / 3; border-radius: 12px; font-size: 0.85rem;">
-          {product.shortName} photo
-        </div>
+        <figure class="product-figure">
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.imageAlt ?? product.name}
+              width="1200"
+              height="750"
+              loading="eager"
+              fetchpriority="high"
+            />
+          ) : (
+            <div class="card-media" style="aspect-ratio: 4 / 3; border-radius: 12px;">{product.shortName} photo</div>
+          )}
+        </figure>
       </div>
     </div>
   </section>
 
   <section class="section section--soft">
-    <div class="container grid-2" style="align-items: start;">
+    <div class="container grid-2" style="align-items: start; gap: 48px;">
       <div>
-        <h2>Key specifications</h2>
+        <h2>About our {product.name.toLowerCase()}</h2>
+        {introParagraphs.map((p) => <p class="body-copy">{p}</p>)}
+        <p class="body-copy">
+          Need a specification that is not listed? Send us the model name, quantity and destination port —
+          we will confirm factory availability and quote FOB, CIF or DDP within one working day.
+        </p>
+      </div>
+      <div>
+        <h2>Range at a glance</h2>
         <table class="spec-table">
           <tbody>
             {product.specs.map((s) => (
@@ -78,21 +146,61 @@ const breadcrumbLd = {
             ))}
           </tbody>
         </table>
-      </div>
-      <div>
-        <h2>What's included</h2>
-        <ul style="color: var(--muted); padding-left: 1.2em;">
-          {product.highlights.map((h) => <li style="margin-bottom: 0.6em;">{h}</li>)}
-        </ul>
-        <div style="margin-top: 26px;">
-          {SITE.certifications.map((c) => <span class="badge">{c}</span>)}
+        <div style="margin-top: 22px;">
+          {product.brands.map((b) => <span class="badge">{b}</span>)}
+          {SITE.certifications.slice(0, 3).map((c) => <span class="badge">{c}</span>)}
         </div>
       </div>
     </div>
   </section>
 
+  <section class="section" id="models">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Models</p>
+        <h2>{product.name} models we supply</h2>
+        <p>
+          Specifications below are the standard factory configurations. Engine emission, gearbox, body,
+          steering side and options can be adjusted at order — ask us for a configuration sheet.
+        </p>
+      </div>
+
+      <div class="model-grid">
+        {product.models.map((m, i) => (
+          <article class="model-card" id={`model-${i + 1}`}>
+            <header>
+              <h3>{m.name}</h3>
+              <p class="model-type">{m.type}</p>
+            </header>
+            <p class="model-desc">{m.description}</p>
+            <table class="model-specs">
+              <tbody>
+                {m.specs.map((s) => (
+                  <tr><th scope="row">{s.label}</th><td>{s.value}</td></tr>
+                ))}
+              </tbody>
+            </table>
+            <a class="model-link" href={`#quote`}>Ask about the {m.name} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Applications</p>
+        <h2>Where these vehicles work</h2>
+      </div>
+      <ul class="chip-list">
+        {product.applications.map((a) => <li class="chip">{a}</li>)}
+      </ul>
+    </div>
+  </section>
+
   <section class="section">
-    <div class="container grid-2" style="align-items: start;">
+    <div class="container grid-2" style="align-items: start; gap: 48px;">
       <div class="faq">
         <h2>Frequently asked questions</h2>
         {product.faqs.map((f) => (
@@ -107,4 +215,29 @@ const breadcrumbLd = {
       </div>
     </div>
   </section>
+
+  {relatedProducts.length > 0 && (
+    <section class="section section--soft">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">Related categories</p>
+          <h2>Explore other vehicle lines</h2>
+        </div>
+        <div class="grid-3">
+          {relatedProducts.map((p) => (
+            <a class="card" href={`/products/${p.slug}/`}>
+              <div class="card-media">
+                {p.image ? <img src={p.image} alt={p.imageAlt ?? p.name} width="600" height="375" loading="lazy" /> : p.shortName}
+              </div>
+              <div class="card-body">
+                <h3>{p.name}</h3>
+                <p>{p.tagline}</p>
+                <span class="card-link">View specifications →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </Base>

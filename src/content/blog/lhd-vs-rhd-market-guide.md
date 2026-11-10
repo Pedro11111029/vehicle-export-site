@@ -65,6 +65,8 @@ For a typical container programme we see:
 
 If you are unsure, order a single sample unit first. It is far cheaper to test the market with one vehicle than to discover after a container arrives that half the stock cannot be registered.
 
+We quote both configurations across our [truck range](/products/), [passenger cars](/products/passenger-cars/) and [RVs](/products/rvs/) — tell us the destination country and we will confirm availability.
+
 ## Ordering checklist
 
 Before placing an order, confirm:

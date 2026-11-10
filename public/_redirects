@@ -1,0 +1,7 @@
+# 旧产品分类（2026-11 改版前的三个占位页）→ 新分类
+/products/passenger-vehicles/  /products/passenger-cars/     301
+/products/passenger-vehicles   /products/passenger-cars/     301
+/products/commercial-trucks/   /products/                    301
+/products/commercial-trucks    /products/                    301
+/products/new-energy-vehicles/ /products/electric-trucks/    301
+/products/new-energy-vehicles  /products/electric-trucks/    301

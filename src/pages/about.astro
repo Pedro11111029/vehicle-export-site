@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../config/site.ts';
 
 const title = `About ${SITE.name} — Vehicle Export Company`;
-const description = `${SITE.name} has supplied passenger vehicles, trucks and new energy vehicles to buyers in ${SITE.stats[1].value} countries since ${SITE.founded}. Learn how we work.`;
+const description = `${SITE.name} has supplied FAW trucks, special-purpose vehicles, passenger cars, electric vehicles and RVs to buyers in ${SITE.stats[1].value} countries since ${SITE.founded}. Learn how we work.`;
 ---
 <Base title={title} description={description}>
   <section class="section" style="padding-bottom: 32px;">
@@ -11,8 +11,9 @@ const description = `${SITE.name} has supplied passenger vehicles, trucks and ne
       <p class="eyebrow">About us</p>
       <h1>A trading partner that answers, documents and delivers.</h1>
       <p style="color: var(--muted); font-size: 1.08rem; max-width: 62ch;">
-        {SITE.legalName} is a vehicle export company based in China, supplying passenger cars,
-        commercial trucks and new energy vehicles to importers, dealers and fleet operators worldwide.
+        {SITE.legalName} is a vehicle export company based in China, supplying FAW trucks,
+        special-purpose and municipal vehicles, passenger cars, electric commercial vehicles
+        and RVs to importers, dealers and fleet operators worldwide.
       </p>
     </div>
   </section>
