@@ -4,16 +4,16 @@
 // ============================================================
 
 export const SITE = {
-  url: 'https://example.com', // TODO: 换成你的域名，带 https://，结尾不要加 /
+  url: 'https://usedtruk.com',
   name: 'Global Auto Trading',
-  legalName: 'TODO YOUR COMPANY CO., LTD.',
+  legalName: 'PedroZ CO., LTD.',
   tagline: 'Reliable Vehicle Export Partner Since 2010',
   description:
     'B2B vehicle export supplier — passenger cars, commercial trucks and new energy vehicles. Factory-direct pricing, full export documentation, worldwide shipping.',
-  email: 'sales@example.com', // TODO: 换成你的域名邮箱
-  phone: '+86 000 0000 0000', // TODO
-  whatsapp: '+8613800000000', // TODO: 国家码+号码，不要加空格和括号
-  address: 'TODO: 你的公司地址, City, Province, China',
+  email: 'Pedro@usedtruk.com',
+  phone: '+86 152 2650 1029',
+  whatsapp: '+8615226501029', // 国家码+号码，不要加空格和括号
+  address: 'No. 1, Shijiazhuang, Hebei, China',
   founded: '2010',
   hours: 'Mon–Sat 09:00–18:00 (GMT+8)',
   stats: [
@@ -138,6 +138,7 @@ export const PRODUCTS: Product[] = [
 export const NAV = [
   { href: '/', label: 'Home' },
   { href: '/products/', label: 'Products' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];

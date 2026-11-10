@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../config/site.ts';
+import { getPublishedPosts, formatDate, readingTime, postPath } from '../../lib/blog.ts';
+
+const posts = await getPublishedPosts();
+
+const title = `Vehicle Export Insights & Import Guides | ${SITE.name}`;
+const description =
+  'Practical guides for vehicle importers: sourcing from China, LHD vs RHD, shipping by container or RoRo, documentation and landed cost.';
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE.url + '/blog/' },
+  ],
+};
+
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: title,
+  description,
+  url: SITE.url + '/blog/',
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    url: SITE.url + postPath(post),
+  })),
+};
+---
+<Base title={title} description={description} jsonLd={[breadcrumbLd, blogLd]}>
+  <section class="section" style="padding-bottom: 24px;">
+    <div class="container">
+      <p class="eyebrow">Insights</p>
+      <h1>Vehicle export guides for importers</h1>
+      <p style="color: var(--muted); max-width: 62ch;">
+        Practical articles on sourcing, specification, shipping and documentation — written for buyers who import vehicles at
+        volume.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 8px;">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p style="color: var(--muted);">No articles published yet.</p>
+      ) : (
+        <div class="post-grid">
+          {posts.map((post) => (
+            <a class="post-card" href={postPath(post)}>
+              <div class="post-card-media">
+                {post.data.image ? (
+                  <img src={post.data.image} alt="" loading="lazy" />
+                ) : (
+                  <span>{post.data.tags[0] ?? 'Guide'}</span>
+                )}
+              </div>
+              <div class="post-card-body">
+                <p class="post-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                  <span aria-hidden="true">·</span>
+                  <span>{readingTime(post.body)} min read</span>
+                </p>
+                <h2>{post.data.title}</h2>
+                <p class="post-excerpt">{post.data.description}</p>
+                <span class="card-link">Read article →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="cta-band">
+        <div>
+          <h2>Planning an import?</h2>
+          <p>Send us your destination market and volume — we will outline the specification, shipping method and landed cost.</p>
+        </div>
+        <a class="btn btn--primary" href="/contact/">Request a quote</a>
+      </div>
+    </div>
+  </section>
+</Base>

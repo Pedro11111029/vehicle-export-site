@@ -41,7 +41,33 @@
 **图片**：产品图放在 `public/images/`，然后在 `src/config/site.ts` 的 `PRODUCTS` 里加 `image: '/images/xxx.jpg'`，
 再把 `src/pages/products/[slug].astro` 里的 `<div class="card-media">` 换成 `<img>`。
 
-**分享图**：放一张 1200×630 的 `public/og-image.jpg`（WhatsApp / LinkedIn 分享时显示）。
+**分享图**：`public/og-image.jpg`（1200×630）已生成。改了品牌名或域名后重新生成：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/make-og-image.ps1
+```
+
+### 写博客文章
+
+文章放在 `src/content/blog/`，**一个 `.md` 文件 = 一篇**，自动生成 `/blog/文件名/`，并进入列表页、sitemap 和 RSS（`/rss.xml`）。不需要新建 `.astro` 页面。
+
+```markdown
+---
+title: 'Your article title'
+description: '150 字符内的摘要，用于列表页和 SEO description'
+pubDate: 2026-11-05
+updatedDate: 2026-11-10   # 可选
+author: 'Sales Team'      # 可选
+tags: ['Import Guide']    # 可选，用于分类和相关文章
+image: '/images/blog/xxx.jpg'  # 可选，列表卡片配图
+draft: false              # true = 仅本地可见，不会构建上线
+---
+
+正文用 Markdown 写，支持标题、表格、列表、引用。
+```
+
+> 文件名建议用英文短横线（如 `how-to-import-vehicles`），它就是 URL。
+> 标题写 `##` 会自动生成右侧目录（桌面端）和锚点链接。
 
 ---
 
@@ -183,6 +209,9 @@ npm run preview
 ```
 src/
   config/site.ts        ← 所有内容和配置都在这里
+  content.config.ts     ← 博客内容集合的字段定义和校验
+  content/blog/*.md     ← 博客文章（一个文件一篇）
+  lib/blog.ts           ← 文章排序、日期、阅读时长等小工具
   layouts/Base.astro    ← SEO meta、JSON-LD、页头页脚
   components/
     InquiryForm.astro   ← 询盘表单（Turnstile + 前端校验）
@@ -190,9 +219,12 @@ src/
     index.astro         ← 首页
     products/index.astro
     products/[slug].astro ← 产品页模板（自动生成 3 页）
+    blog/index.astro    ← 文章列表
+    blog/[...slug].astro ← 文章页模板（带目录、相关文章、BlogPosting 结构化数据）
     about.astro / contact.astro
     privacy.astro / terms.astro
     robots.txt.ts
+    rss.xml.ts          ← RSS 订阅源
     api/inquiry.ts      ← 表单后端：验证 → D1 → Resend
   styles/global.css
 public/                 ← favicon、图片、og-image
@@ -202,7 +234,7 @@ wrangler.toml           ← Pages + D1 绑定
 
 ## 九、还没做的（建议后续补）
 
-- 博客 / 行业文章（`src/pages/blog/`，用 Markdown 内容集合）——这是长期 SEO 的主要动力
+- 持续写行业文章（博客模块已就绪，建议每月 2–4 篇）——这是长期 SEO 的主要动力
 - 多语言（西语 / 法语 / 阿拉伯语），用 `/es/` 子目录 + `hreflang`
 - 按 IP 的频率限制（Cloudflare Rate Limiting 规则）
 - 询盘同步到飞书表格 / Telegram 通知

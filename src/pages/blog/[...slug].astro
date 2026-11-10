@@ -1,0 +1,137 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE } from '../../config/site.ts';
+import type { BlogPost } from '../../lib/blog.ts';
+import { formatDate, getPublishedPosts, readingTime, postPath } from '../../lib/blog.ts';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const allPosts = await getPublishedPosts();
+
+const title = `${post.data.title} | ${SITE.name}`;
+const description = post.data.description;
+const canonical = `${SITE.url}${postPath(post)}`;
+const toc = headings.filter((h) => h.depth === 2);
+
+const related = allPosts
+  .filter((p) => p.id !== post.id && p.data.tags.some((t) => post.data.tags.includes(t)))
+  .slice(0, 2);
+const fallbackRelated = related.length
+  ? related
+  : allPosts.filter((p) => p.id !== post.id).slice(0, 2);
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  author: { '@type': 'Organization', name: post.data.author, url: SITE.url },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.legalName,
+    url: SITE.url,
+    logo: { '@type': 'ImageObject', url: new URL('/favicon.svg', SITE.url).href },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  image: new URL(post.data.image ?? '/og-image.jpg', SITE.url).href,
+  keywords: post.data.tags.join(', '),
+};
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE.url + '/blog/' },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
+  ],
+};
+---
+<Base title={title} description={description} jsonLd={[articleLd, breadcrumbLd]} ogType="article" ogImage={post.data.image}>
+  <article>
+    <section class="section" style="padding-bottom: 24px;">
+      <div class="container article-head">
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;">
+          <a href="/blog/" style="color: var(--accent-dark);">Blog</a> / {post.data.title}
+        </p>
+        <h1>{post.data.title}</h1>
+        <p class="article-lead">{description}</p>
+        <p class="article-meta">
+          <span>{post.data.author}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime(post.body)} min read</span>
+        </p>
+        {post.data.tags.length > 0 && (
+          <div class="article-tags">
+            {post.data.tags.map((tag) => <span class="badge">{tag}</span>)}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <div class="container article-layout">
+      <div class="prose article-body">
+        <Content />
+      </div>
+
+      {toc.length > 1 && (
+        <aside class="article-toc" aria-label="On this page">
+          <p class="toc-title">On this page</p>
+          <ul>
+            {toc.map((h) => (
+              <li><a href={`#${h.slug}`}>{h.text}</a></li>
+            ))}
+          </ul>
+        </aside>
+      )}
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h2>Need a quote for your market?</h2>
+            <p>Tell us the destination country, vehicle type and volume. We reply within one business day.</p>
+          </div>
+          <a class="btn btn--primary" href="/contact/">Get a quote</a>
+        </div>
+      </div>
+    </section>
+
+    {fallbackRelated.length > 0 && (
+      <section class="section section--soft">
+        <div class="container">
+          <h2 style="margin-bottom: 24px;">Keep reading</h2>
+          <div class="post-grid">
+            {fallbackRelated.map((p) => (
+              <a class="post-card" href={postPath(p)}>
+                <div class="post-card-body">
+                  <p class="post-meta">
+                    <time datetime={p.data.pubDate.toISOString()}>{formatDate(p.data.pubDate)}</time>
+                  </p>
+                  <h2>{p.data.title}</h2>
+                  <p class="post-excerpt">{p.data.description}</p>
+                  <span class="card-link">Read article →</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </article>
+</Base>

@@ -7,12 +7,21 @@ interface Props {
   description: string;
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
 }
 
-const { title, description, jsonLd = [], noindex = false } = Astro.props;
+const { title, description, jsonLd = [], noindex = false, ogType = 'website', ogImage: ogImagePath } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const ogImage = new URL('/og-image.jpg', SITE.url).href;
+const ogImage = new URL(ogImagePath ?? '/og-image.jpg', SITE.url).href;
+const logoMark = SITE.name
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((word) => word[0])
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const organizationLd = {
@@ -43,12 +52,13 @@ const organizationLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d1b2a" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -58,6 +68,7 @@ const organizationLd = {
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — Vehicle Export Insights`} href="/rss.xml" />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
     {jsonLd.map((ld) => (
@@ -68,7 +79,7 @@ const organizationLd = {
     <header class="site-header">
       <div class="container header-inner">
         <a href="/" class="logo">
-          <span class="logo-mark">GA</span>
+          <span class="logo-mark">{logoMark}</span>
           {SITE.name}
         </a>
 
@@ -116,7 +127,7 @@ const organizationLd = {
         </div>
         <div class="footer-bottom">
           <span>© {new Date().getFullYear()} {SITE.legalName}. All rights reserved.</span>
-          <span>{SITE.hours}</span>
+          <span><a href="/rss.xml" style="display: inline;">RSS</a> · {SITE.hours}</span>
         </div>
       </div>
     </footer>

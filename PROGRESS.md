@@ -1,6 +1,6 @@
 # 进度记录
 
-> 最后更新：2026-11-10
+> 最后更新：2026-11-11
 
 ## 项目概况
 
@@ -22,6 +22,12 @@
 - [x] **构建通过**（`npm run build`）
 - [x] **本地接口实测通过**（首页 200 / 产品页 200 / 表单提交 `{"ok":true}`）
 - [x] Git 仓库初始化 + 首次提交
+- [x] **博客模块**：Astro 内容集合（`src/content/blog/*.md`）+ 列表页 `/blog/` + 文章页（目录、相关文章、BlogPosting/面包屑 JSON-LD）+ RSS `/rss.xml` + 导航入口
+- [x] 3 篇示例行业文章（中国进口指南、LHD/RHD 市场指南、集装箱 vs RoRo）
+- [x] 构建验证：3 篇文章页、sitemap、RSS 均正确生成
+- [x] 填真实站点信息（`usedtruk.com` / Global Auto Trading / PedroZ CO., LTD. / 邮箱、电话、WhatsApp、地址）
+- [x] 上线前加固：自定义 404、`_headers` 安全响应头、1200×630 OG 分享图、`.nvmrc`（Node 22）
+- [x] 本地 Cloudflare 环境实测：页面 200 / 404 / 安全头 / 询盘接口 `{"ok":true}` / D1 落库
 
 ## 本地预览
 
@@ -37,10 +43,10 @@ npm run dev -- --host 127.0.0.1
 ## 待办
 
 ### 立即（内容层）
-- [ ] 填 `src/config/site.ts` 里的 TODO：`url`、`name`、`legalName`、`email`、`phone`、`whatsapp`、`address`
-- [ ] 把 `PRODUCTS` 三个占位分类换成真实产品（当前：Passenger Vehicles / Commercial Trucks / New Energy Vehicles）
+- [x] 填 `src/config/site.ts` 里的 TODO（域名、公司名、邮箱、电话、WhatsApp、地址）
+- [ ] 把 `PRODUCTS` 三个占位分类换成真实产品（当前：Passenger Vehicles / Commercial Trucks / New Energy Vehicles；域名是 usedtruk.com，待确认是否以二手卡车为主）
 - [ ] 加产品图片到 `public/images/`，在 `PRODUCTS` 里加 `image` 字段
-- [ ] 加 `public/og-image.jpg`（1200×630，社媒分享用）
+- [x] 加 `public/og-image.jpg`（1200×630，社媒分享用，由 `scripts/make-og-image.ps1` 生成）
 
 ### 上线（基础设施）
 - [ ] 购买域名（.com 优先，看续费价）
@@ -62,7 +68,7 @@ npm run dev -- --host 127.0.0.1
 - [ ] PageSpeed Insights 检查 LCP < 2.5s
 
 ### 后续迭代（未做）
-- [ ] 博客模块 `/blog/`（Markdown 内容集合）—— 长期 SEO 主力
+- [ ] 持续更新博客（每月 2–4 篇，模块已就绪）
 - [ ] 多语言 `/es/`、`/fr/`、`/ar/` + hreflang
 - [ ] 按 IP 频率限制（Cloudflare Rate Limiting）
 - [ ] 询盘同步飞书 / Telegram 通知
@@ -78,6 +84,8 @@ npm run dev -- --host 127.0.0.1
 | Resend 用子域名发信 | 避免与 Cloudflare Email Routing 的 MX 冲突，保护主域名信誉 |
 | 站点不设 cookie，用 Cloudflare Web Analytics | 欧盟访客无需 cookie 同意框，省掉合规复杂度 |
 | 不用 GA4 | 需配同意管理，新手阶段成本高于收益 |
+| 博客用 Astro 内容集合（Markdown），`draft: true` 只本地可见 | 发文只需新建 `.md`，不碰页面代码；草稿不会误上线 |
+| RSS 手写（`src/pages/rss.xml.ts`），不引第三方包 | 少一个依赖，输出可控，够用 |
 
 ## 需要注意的坑（已踩过）
 
