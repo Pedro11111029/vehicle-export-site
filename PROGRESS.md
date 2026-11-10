@@ -9,6 +9,27 @@
 - 预算：域名约 ¥100/年，其余免费额度内
 - 负责人基础：0 基础，代码由 AI 生成并维护
 
+## 当前状态（2026-11-11 暂停点）
+
+- **线上预览**：https://vehicle-export-site.pages.dev （已可访问，全链路正常）
+- **GitHub**：https://github.com/Pedro11111029/vehicle-export-site （`master`，Pages 自动构建）
+- **正式域名**：`usedtruk.com` 未接通
+  - 注册商：阿里云 / 万网（2027-07-18 到期）
+  - 当前 NS：`artemis.dns-parking.com`、`hermes.dns-parking.com`（阿里云停放，DNS 解析异常）
+  - 卡点：需要在 Cloudflare 添加站点，再回阿里云把 NS 改成 Cloudflare 分配的两个 NS
+- **生产 D1**：`inquiries`（WEUR，`0b1f70d0-2918-4e54-913e-e5cae46ec32c`），表已建，线上写入已验证
+- **Turnstile**：线上仍用测试站点密钥（验证永远通过），真实密钥未创建
+- **邮件**：Resend 未配置（询盘只入库不发信）；`Pedro@usedtruk.com` 目前收不到信，需开 Cloudflare Email Routing
+- **代码状态**：工作区干净，所有改动已提交并推送到 `origin/master`
+
+### 恢复后先做
+
+1. Cloudflare 添加站点 `usedtruk.com` → 阿里云改 NS → 等 Active
+2. Pages 绑定 `usedtruk.com` + `www`，开启 Email Routing
+3. 创建 Turnstile 真实密钥、Resend 发信子域名 `send.usedtruk.com` + DMARC
+4. Google Search Console 验证 + 提交 sitemap
+5. 确认产品内容：域名是 `usedtruk.com`，当前产品页写的是新车三大类，需确认是否改为二手卡车为主
+
 ## 已完成
 
 - [x] 项目骨架搭建（`C:\Users\15333\Projects\vehicle-export-site`）
